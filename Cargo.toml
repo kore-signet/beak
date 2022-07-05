@@ -1,0 +1,12 @@
+[package]
+name = "beak"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+matchit = "0.6.0"
+mime = "0.3.16"
+multipart = { git = "https://github.com/emily-signet/multipart", default-features = false, features = ["server", "tiny_http"] }
+thiserror = "1.0.31"
+tiny_http = { git = "https://github.com/emily-signet/tiny-http.git" }
+
