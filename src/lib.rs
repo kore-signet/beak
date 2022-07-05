@@ -48,6 +48,17 @@ impl<'url, 'sender, 'mv> Request<'url, 'sender, 'mv> {
             writer,
         ))
     }
+
+    // i have such good naming
+    pub fn respond_with_tinyhttp(self, res: Response<impl Read>) -> io::Result<()> {
+        TinyHttpRequest::ignore_client_closing_errors(res.raw_print(
+            self.output,
+            self.http_version,
+            self.headers,
+            false,
+            None,
+        ))
+    }
 }
 
 pub trait Handler<C: Send + Sync> {
@@ -219,7 +230,7 @@ mod macros {
             match $opt {
                 Some(v) => v,
                 None => {
-                    $req.respond($response)?;
+                    $req.respond_with_tinyhttp($response)?;
                     return Ok(());
                 }
             }
